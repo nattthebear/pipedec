@@ -1,0 +1,29 @@
+This is a sample configuration file for pipedec.  In order for it to work, it must be placed at:
+%APPDATA%\pipedec\.pipedec
+
+All lines that do not start with '@' or '!' are comment lines.
+A full explanation of configuration options is found in the default configuration file, which will be automatically created
+at the above location after the codec has been queried on format at least once.
+
+
+These entries are LIVE.  If you put them in your configuration file without commenting them out, they will run "d:\encodes\x264\x264_64_8.exe"!!!
+
+lossless, but output will be upside down
+!RGB24:d:\encodes\x264\x264_64_8.exe --preset veryslow --input-fmt raw --input-csp bgr --output-csp rgb --input-res %wx%h --fps %n/%d --qp 0 -o output.h264 -
+
+4:2:0 lossless
+@I420@:d:\encodes\x264\x264_64_8.exe --preset veryslow --input-fmt raw --input-csp i420 --output-csp i420 --input-res %wx%h --fps %n/%d --qp 0 -o output.h264 -
+@IYUV@:d:\encodes\x264\x264_64_8.exe --preset veryslow --input-fmt raw --input-csp i420 --output-csp i420 --input-res %wx%h --fps %n/%d --qp 0 -o output.h264 -
+@YV12@:d:\encodes\x264\x264_64_8.exe --preset veryslow --input-fmt raw --input-csp yv12 --output-csp i420 --input-res %wx%h --fps %n/%d --qp 0 -o output.h264 -
+@NV12@:d:\encodes\x264\x264_64_8.exe --preset veryslow --input-fmt raw --input-csp nv12 --output-csp i420 --input-res %wx%h --fps %n/%d --qp 0 -o output.h264 -
+
+4:2:2 lossless
+
+@I422@:d:\encodes\x264\x264_64_8.exe --preset veryslow --input-fmt raw --input-csp i422 --output-csp i422 --input-res %wx%h --fps %n/%d --qp 0 -o output.h264 -
+@YV16@:d:\encodes\x264\x264_64_8.exe --preset veryslow --input-fmt raw --input-csp yv16 --output-csp i422 --input-res %wx%h --fps %n/%d --qp 0 -o output.h264 -
+@NV16@:d:\encodes\x264\x264_64_8.exe --preset veryslow --input-fmt raw --input-csp nv16 --output-csp i422 --input-res %wx%h --fps %n/%d --qp 0 -o output.h264 -
+
+4:4:4 lossless
+
+@I444@:d:\encodes\x264\x264_64_8.exe --preset veryslow --input-fmt raw --input-csp i444 --output-csp i444 --input-res %wx%h --fps %n/%d --qp 0 -o output.h264 -
+@YV24@:d:\encodes\x264\x264_64_8.exe --preset veryslow --input-fmt raw --input-csp yv24 --output-csp i444 --input-res %wx%h --fps %n/%d --qp 0 -o output.h264 -
