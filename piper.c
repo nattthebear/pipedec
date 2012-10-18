@@ -279,6 +279,9 @@ DWORD WINAPI dumpthreaderr (LPVOID lpParam)
 
 static void closepipe (pipe_instance_t *this)
 {
+  if (this->thread == INVALID_HANDLE_VALUE)
+    return; // we were never opened
+
   fclose (this->in);
 
   while (WaitForSingleObject (this->proc, INFINITE))
