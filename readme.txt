@@ -1,4 +1,4 @@
-Copyright (c) 2012, Nicholai Main
+Copyright (c) 2012, 2014 Nicholai Main
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -25,38 +25,54 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 
-"Pipe Codec" (pipedec.dll) acts as a VFW compressor.  When called upon to
-compress data, it runs an external program, feeds it the uncompressed data
-on stdin, and sends a dummy compressed stream back to VFW.
+"Pipe Codec" (pipedec.dll and pipedec64.dll) acts as a VFW compressor.  When
+called upon to compress data, it runs an external program, feeds it the
+uncompressed data on stdin, and sends a dummy compressed stream back to VFW.
 
 Rationale:  VFW is legacy these days.  FFDShow has discontinued support for
-many of their VFW encoders.  x264VFW is not officially supported and lags behind
-the official releases in many ways.  The AVI container is outdated and doesn't
-support modern constructs like bframes correctly.  However, many VFW apps are still
-in use, and if you have a program that encodes to VFW only, it would be nice
-to have options other than Intel Indeo =p.
+many of their VFW encoders.  x264VFW is not officially supported and lags
+behind the official releases in many ways.  The AVI container is outdated and
+doesn't support modern constructs like bframes correctly.  However, many VFW
+apps are still in use, and if you have a program that encodes to VFW only, it
+would be nice to have options other than Intel Indeo =p.
 
 Compatibility:  Pipe Codec should work on any Windows 2000 or later machine.
-Pipe Codec is 32 bit only, so will only work in 32 bit applications.  However,
-the external programs it calls can be 64 bit (if you are on a 64 bit OS).
+On a 32 bit OS, only the 32 bit build will work, and it should run from any
+32 bit VFW host and be able to call any 32 bit compression application.  On
+a 64 bit OS, both 32 and 64 bit builds of Pipe Codec can be used.  The build
+used in any particular case must match the VFW host, but the encoding
+application called can be 32 or 64 bit with either 32 or 64 bit Pipe Codec.
 
-Installation:  There are two registry files, one for 32 bit machines and one
-for 64 bit machines:
+Installation, 32 bit OS:
+There is one applicable registry file:
 
 register pipedec (32 bit on 32 bit system).reg
-register pipedec (32 bit on 64 bit system).reg
 
-You should never run untrusted registry files.  Load whichever
-of the two registry files is appropriate for your machine into a text editor
-and examine the content.  When you are satisfied that it is not
+You should never run untrusted registry files.  Load this file into a text
+editor and examine the content.  When you are satsified that it is not
 malicious, you can load it into the registry.
 
-The pipedec.dll file can be copied to an appropriate system location:
-%Windir%\system32  (32 bit machines)
-%Windir%\SysWoW64  (64 bit machines)
-Or, it can be put in any path you prefer that is on the DLL load list.
-Or, you can just put pipedec.dll in the folder of a VFW client that you
-want to use Pipe Codec with.
+The pipedec.dll file is customarily copied to %Windir%\system32, but it can
+be placed anywhere in the DLL search path for the VFW host in question,
+including the application's path.
+
+Installation, 64 bit OS:
+There are two applicable registry file:
+
+register pipedec (32 bit on 64 bit system).reg
+register pipedec (64 bit on 64 bit system).reg
+
+You should never run untrusted registry files.  Load these files into a text
+editor and examine their content.  When you are satsified that they are not
+malicious, you can load them into the registry.
+
+For 32 bit VFW hosts, the pipedec.dll file is used.  It is customarily copied
+to %Windir%\SysWoW64, but it can be placed anywhere in the DLL search path for
+the VFW host in question, including the application's path.
+
+For 64 bit VFW hosts, the pipedec64.dll file is used.  It is customarily copied
+to %Windir%\system32, but it can be placed anywhere in the DLL search path for
+the VFW host in question, including the application's path.
 
 Uninstallation:  Because you didn't install anything that you didn't fully
 understand, you understand how to uninstall it without further instruction.
@@ -67,7 +83,10 @@ If this file does not exist, the first time Pipe Codec is queried for
 formats, it will be created.  The file is editable in any text editor,
 and the default one includes comments on how to edit it.  If you're still
 lost after reading the default config file, the included exampleconfig.pipedec
-has some actual handler examples.
+has some actual handler examples.  Note that the same configuration file is
+used for both 32 and 64 bit VFW hosts on a 64 bit OS.  This should not be a
+problem since you may freely specify a 32 bit or 64 bit encoding application
+and both will use it successfully.
 
 Operation:  When asked to compress, Pipe Codec will look in the configuration
 file for a "handler": a command line to run together with a FOURCC that it works
@@ -94,4 +113,3 @@ in the current directory, contain the output of the program that was run.
 The current directory that the piped application runs in is not
 nessecarily predictable, but probably will be the same as the AVI file being
 created.
-

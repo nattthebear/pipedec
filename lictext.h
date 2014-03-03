@@ -1,5 +1,5 @@
 const char *lick_text = 
-"Copyright (c) 2012, Nicholai Main\n"
+"Copyright (c) 2012, 2014 Nicholai Main\n"
 "All rights reserved.\n"
 "\n"
 "Redistribution and use in source and binary forms, with or without\n"

@@ -1,5 +1,5 @@
 /* 
-Copyright (c) 2012, Nicholai Main
+Copyright (c) 2012, 2014 Nicholai Main
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -385,11 +385,11 @@ static int openpipe (pipe_instance_t *this, int w, int h)
   
   
                                 // what the hell is this cast for
-  if (NULL == (fin = _fdopen (_open_osfhandle ((int) parent_hin, 0), "wb")))
+  if (NULL == (fin = _fdopen (_open_osfhandle ((intptr_t) parent_hin, 0), "wb")))
     goto fail;
-  if (NULL == (fout = _fdopen (_open_osfhandle ((int) parent_hout, 0), "r")))
+  if (NULL == (fout = _fdopen (_open_osfhandle ((intptr_t) parent_hout, 0), "r")))
     goto fail;
-  if (NULL == (ferr = _fdopen (_open_osfhandle ((int) parent_herr, 0), "r")))
+  if (NULL == (ferr = _fdopen (_open_osfhandle ((intptr_t) parent_herr, 0), "r")))
     goto fail;
   // after fdopen(osf()), we don't need to keep track of parent handles anymore
   // fclose on the FILE struct will automatically free them

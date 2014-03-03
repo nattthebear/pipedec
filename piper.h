@@ -1,5 +1,5 @@
 /* 
-Copyright (c) 2012, Nicholai Main
+Copyright (c) 2012, 2014 Nicholai Main
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

@@ -1,5 +1,5 @@
 /* 
-Copyright (c) 2012, Nicholai Main
+Copyright (c) 2012, 2014 Nicholai Main
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -47,7 +47,7 @@ BOOL WINAPI DllMain (HINSTANCE hinst, DWORD reason, LPVOID lpReserved)
 }
 
 
-LRESULT WINAPI DriverProc (DWORD dwDriverID, HDRVR hDriver, UINT uiMessage, LPARAM lParam1, LPARAM lParam2)
+LRESULT WINAPI DriverProc (DWORD_PTR dwDriverID, HDRVR hDriver, UINT uiMessage, LPARAM lParam1, LPARAM lParam2)
 {
   //static FILE *dbgf = NULL;
   //if (!dbgf)
